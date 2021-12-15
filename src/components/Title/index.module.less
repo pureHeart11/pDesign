@@ -1,0 +1,57 @@
+.title {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 24px 0;
+  padding-left: 11px;
+  color: rgba(0, 0, 0, 0.85);
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+
+  .extraContent {
+    color: #1990ff;
+    font-weight: 500;
+    cursor: pointer;
+  }
+
+  &::before {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    display: table;
+    width: 3px;
+    height: 16px;
+    background: #1990ff;
+    border-radius: 2px;
+    transform: translateY(-50%);
+    content: '';
+  }
+
+  .tooltip {
+    margin-left: 4px;
+    color: rgba(0, 0, 0, 0.45);
+  }
+}
+
+.commonTitle {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: rgba(0, 0, 0, 0.85);
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+
+  .extraContent {
+    color: #1990ff;
+    font-weight: 500;
+    cursor: pointer;
+  }
+  .tooltip {
+    margin-left: 4px;
+    color: rgba(0, 0, 0, 0.45);
+  }
+}
