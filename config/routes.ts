@@ -49,6 +49,12 @@
   //   component: './TableList',
   // },
   {
+    path: '/template',
+    name: 'template',
+    icon: 'smile',
+    component: './template',
+  },
+  {
     path: '/',
     redirect: '/welcome',
   },
