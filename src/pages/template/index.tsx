@@ -5,6 +5,7 @@ import { useReactive, useRequest } from 'ahooks';
 import { ModalForm, ProFormText, ProFormSelect } from '@ant-design/pro-form';
 import moment from 'moment';
 import WProTable from '@/components/WProTable';
+import LongText from '@/components/LongText';
 import { apiPrefix } from '@/utils/config';
 import { pipelineDelete, pipelineAdd } from './service';
 
@@ -109,6 +110,7 @@ const Index: FC<IProps> = ({ location }) => {
   ];
   return (
     <>
+      <LongText text="procomponentsprocomponentsprocomponentsprocomponentsprocomponents" />
       <WProTable
         actionRef={actionRef}
         columns={columns}

@@ -3,7 +3,7 @@
 import React, { useRef, useState, useImperativeHandle, useCallback } from 'react';
 import ProTable, { ProTableProps, ProColumns, ActionType } from '@ant-design/pro-table';
 import { ParamsType } from '@ant-design/pro-provider';
-import { useRequest } from 'ahooks';
+import { useAntdTable } from 'ahooks';
 import { isEmpty } from 'lodash';
 import request from '@/utils/request';
 
@@ -35,9 +35,16 @@ function WProTable<
     actionRef,
     formatters,
     url,
-    search,
+    search = {
+      labelWidth: 'auto',
+      span: 6,
+      optionRender: (searchConfig, formProps, dom) => [...dom.reverse()],
+    },
     pagination = {},
     initParams = {},
+    rowKey = 'id',
+    bordered = false,
+    size = 'small',
     ...restProps
   } = props;
   const tableRef = useRef<ActionType>();
@@ -55,11 +62,11 @@ function WProTable<
   }, []);
   const [searchParams, setSearchParams] = useState(init);
   // 表格数据
-  const { tableProps, refresh, data, loading } = useRequest(
+  const { tableProps, refresh, data, loading } = useAntdTable(
     ({ current, pageSize, sorter, filters }) => {
       let params: any = {
         page: current,
-        pageSize,
+        size: pageSize,
         ...searchParams,
       };
 
@@ -89,10 +96,10 @@ function WProTable<
     {
       formatResult: formatters?.response
         ? formatters?.response
-        : (res) => {
+        : (res: Record<string, any>) => {
             return {
               total: res?.data?.total ?? 0,
-              list: res?.data?.list,
+              list: res?.data?.records,
             };
           },
       refreshDeps: [searchParams],
@@ -122,22 +129,20 @@ function WProTable<
       <ProTable<T, U>
         actionRef={tableRef}
         columns={columns}
-        bordered
+        bordered={bordered}
         loading={loading}
-        dataSource={tableProps.dataSource}
+        size={size}
+        // @ts-ignore
+        dataSource={data?.data?.records}
         options={false}
-        rowKey="id"
+        rowKey={rowKey}
         dateFormatter="string"
-        search={{
-          labelWidth: 'auto',
-          // span: 6,
-          optionRender: (searchConfig, formProps, dom) => [...dom.reverse()],
-        }}
+        search={search}
         pagination={
           pagination === false
             ? false
             : {
-                ...tableProps.pagination,
+                ...data?.data?.pagination,
                 showQuickJumper: true,
                 pageSize: 10,
                 size: 'default',
